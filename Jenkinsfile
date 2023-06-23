@@ -25,21 +25,17 @@ pipeline{
                 sh 'gradle test'
             }
         }
-        // stage('Deploy to Heroku'){
-        //     steps {
-        //         withCredentials([usernameColonPassword(credentialsId: 'heroku', variable: 'HEROKU_CREDENTIALS')]) {
-        //             sh 'git push https://${HEROKU_CREDENTIALS}@git.heroku.com/java-todo3.git master'
-            
-          
-        //         }
-        //     }
-        // }
-        // stage('Slack notification'){
-        //     steps{
-        //        slackSend channel: '#random', color: '#008000', message: "successfully deployed ${env.JOB_NAME} ${env.BUILD_NUMBER} to (<https://java-todo3.herokuapp.com/|Java-todo3>) ", teamDomain: 'wanjiku-workspace', tokenCredentialId: 'slack2', username: 'pat_Jenkins'
-                
-        //     }
-        // }
+        stage('Deploy to Heroku'){
+            steps{
+               withCredentials([usernameColonPassword(credentialsId: 'Heroku1', variable: 'PASS')]) {
+                    sh 'git push https://${PASS}@git.heroku.com/java-todo1.git master' } 
+            }
+        }
+        stage('Slack Notifications'){
+            steps{
+                slackSend channel: '#trial', color: 'green', message: "successful deployment of ${env.JOB_NAME}", teamDomain: 'wanjiku-workspace', tokenCredentialId: 'slack2' 
+                 }
+        }
         
         
     }
