@@ -2,7 +2,7 @@ pipeline{
     agent any
  
     tools {
-        gradle 'Gradle-6'
+        gradle 'Gradle-8'
     }
     stages{
         stage('Clone Repository' ){
